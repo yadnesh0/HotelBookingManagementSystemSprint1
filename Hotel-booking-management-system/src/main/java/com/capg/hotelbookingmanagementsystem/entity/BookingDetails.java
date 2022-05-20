@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,34 +17,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class BookingDetails {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "booking_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	private int bookingId;
-	@Column(name = "booked_from")
 	private Date bookedFrom;
-	@Column(name = "booked_to")
 	private Date bookedTo;
-	@Column(name = "no_of_adults")
 	private int noOfAdults;
-	@Column(name = "no_of_childern")
 	private int noOfChildren;
 	private double amount;
-
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(targetEntity = User.class,cascade =  CascadeType.ALL)
 	@JoinColumn(name="user_id")
     private User users;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(targetEntity = Hotel.class,cascade = CascadeType.ALL)
 	@JoinColumn(name="hotel_id")
 	private Hotel hotel;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<RoomDetails> roomDetails;
+	@OneToMany(targetEntity = RoomDetails.class,cascade = CascadeType.ALL)
+	private List<RoomDetails> rooms;
 	
-	@OneToMany(mappedBy = "booking")
+	@OneToMany(mappedBy = "booking",cascade = CascadeType.ALL)
 	private List<Payments> payments;
 }

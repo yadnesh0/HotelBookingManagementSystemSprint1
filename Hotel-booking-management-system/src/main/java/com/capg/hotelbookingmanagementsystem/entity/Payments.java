@@ -1,6 +1,5 @@
 package com.capg.hotelbookingmanagementsystem.entity;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,14 +14,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Payments {
  @Id
- @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  private int payment_id;
+ @GeneratedValue(strategy = GenerationType.AUTO)
+  private int paymentId;
  
- @OneToOne(cascade = CascadeType.ALL)
+ @OneToOne(targetEntity = Transactions.class, cascade = CascadeType.ALL)
  @JoinColumn(name="transaction_id")
  private Transactions transactions;
  

@@ -36,7 +36,7 @@ public class RoomDetailsController {
 	 
 	 @PutMapping("/updateRoomDetails")
 	 public ResponseEntity<RoomDetails> updateRoomDetails(@RequestBody RoomDetails roomDetails)throws RecordNotFoundException{
-		 Integer id=roomDetails.getRoom_id();
+		 Integer id=roomDetails.getRoomId();
 		 if(roomDetailsRepository.findById(id).isPresent()){
 
 			 return new ResponseEntity<RoomDetails>(roomDetailsServiceImpl.updateRoomDetails(roomDetails),HttpStatus.CREATED);
@@ -69,6 +69,30 @@ public class RoomDetailsController {
 
 		 if(roomDetailsRepository.findById(room_id).isPresent()) {
 			 RoomDetails rd=roomDetailsServiceImpl.showRoomDetailsById(room_id);
+			 return new ResponseEntity<RoomDetails>(rd,HttpStatus.OK);
+		 }
+		 else {
+			 throw new RecordNotFoundException("RoomDetails with Id : "+room_id+" not found ");
+		 }
+	 }
+	 
+	 @PutMapping("/setTrue/{room_id}")
+	 public ResponseEntity<RoomDetails> setRoomTrue(@PathVariable int room_id) throws RecordNotFoundException{
+
+		 if(roomDetailsRepository.findById(room_id).isPresent()) {
+			 RoomDetails rd=roomDetailsServiceImpl.roomAvailabilityTrue(room_id);
+			 return new ResponseEntity<RoomDetails>(rd,HttpStatus.OK);
+		 }
+		 else {
+			 throw new RecordNotFoundException("RoomDetails with Id : "+room_id+" not found ");
+		 }
+	 }
+	 
+	 @PutMapping("/setFalse/{room_id}")
+	 public ResponseEntity<RoomDetails> setRoomFalse(@PathVariable int room_id) throws RecordNotFoundException{
+
+		 if(roomDetailsRepository.findById(room_id).isPresent()) {
+			 RoomDetails rd=roomDetailsServiceImpl.roomAvailabilityFalse(room_id);
 			 return new ResponseEntity<RoomDetails>(rd,HttpStatus.OK);
 		 }
 		 else {

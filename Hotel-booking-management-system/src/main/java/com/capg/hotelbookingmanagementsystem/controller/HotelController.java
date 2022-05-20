@@ -38,7 +38,7 @@ public class HotelController {
 	
 	@PutMapping("/updateHotel")
 	public ResponseEntity<Hotel>updateHotel(@RequestBody Hotel hotel) throws RecordNotFoundException{
-		Integer id=hotel.getHotel_id();
+		Integer id=hotel.getHotelId();
 		if(hotelRepository.findById(id).isPresent()) {
 			return new ResponseEntity<Hotel>(hotelServiceImpl.updateHotel(hotel),HttpStatus.CREATED);
 		}

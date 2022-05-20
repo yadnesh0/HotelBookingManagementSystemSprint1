@@ -6,19 +6,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capg.hotelbookingmanagementsystem.entity.Hotel;
+import com.capg.hotelbookingmanagementsystem.entity.RoomDetails;
 import com.capg.hotelbookingmanagementsystem.repository.HotelRepository;
+import com.capg.hotelbookingmanagementsystem.repository.RoomDetailsRepository;
 @Service
 public class HotelServiceImpl implements HotelService {
 	@Autowired
 	private HotelRepository hotelRepository;
+	@Autowired
+	private RoomDetailsRepository roomDetailsRepository;
 
 	@Override
 	public Hotel addHotel(Hotel hotel) {	
+		List<RoomDetails> r = hotel.getRooms();
+		r.forEach(i -> { i.setHotel(hotel);
+			  roomDetailsRepository.save(i);
+		});
 		return hotelRepository.save(hotel);
 	}
 
 	@Override
 	public Hotel updateHotel(Hotel hotel) {
+		List<RoomDetails> r = hotel.getRooms();
+		r.forEach(i -> { i.setHotel(hotel);
+			  roomDetailsRepository.save(i);
+		});
 		return hotelRepository.save(hotel);
 	}
 

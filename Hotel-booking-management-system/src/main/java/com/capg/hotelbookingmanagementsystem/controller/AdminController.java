@@ -109,7 +109,7 @@ public class AdminController {
 	public ResponseEntity<?> fetchBookingDetails(@PathVariable("id") Integer user_id){
 		if(validAdmin == 1) {
 			User user = userservice.showUserById(user_id);		
-		    BookingDetails booking = user.getBDetails();
+		    BookingDetails booking = user.getBooking();
 		    return ResponseEntity.ok(booking); 
 		}else
 			return ResponseEntity.ok("Not Logged In");
@@ -159,16 +159,16 @@ public class AdminController {
 	public ResponseEntity<?> fetchRoomDetails(@PathVariable("id") Integer hotel_id){
 		if(validAdmin == 1) {
 			Hotel hotel = hotelservice.showHotelById(hotel_id);		
-		    List<RoomDetails> rooms = hotel.getRoomDetails();
+		    List<RoomDetails> rooms = hotel.getRooms();
 		    List<String> roomlist = new ArrayList<>();
 		    int i = 1;
 		    for(RoomDetails obj : rooms) {
 		    	roomlist.add( "Serial : " + i +
-		    			 	   ", Room id : " + obj.getRoom_id() + 
-                               ", Room No : " + obj.getRoom_no() + 
-                               ", Room Type : " + obj.getRoom_type() + 
-                               ", Rate per Day : " + obj.getRate_per_day() + 
-                               ", Is Available : " + obj.isIsavailable());
+		    			 	   ", Room id : " + obj.getRoomId() + 
+                               ", Room No : " + obj.getRoomNo() + 
+                               ", Room Type : " + obj.getRoomType() + 
+                               ", Rate per Day : " + obj.getRatePerDay() + 
+                               ", Is Available : " + obj.isAvailable());
 		    	i++;
 		    }
 		    return ResponseEntity.ok(roomlist); 

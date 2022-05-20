@@ -7,5 +7,5 @@ import com.capg.hotelbookingmanagementsystem.entity.Hotel;
 
 @Repository
 public interface HotelRepository extends JpaRepository<Hotel,Integer> {
-
+    public Hotel findByHotelId(int hotelId);
 }

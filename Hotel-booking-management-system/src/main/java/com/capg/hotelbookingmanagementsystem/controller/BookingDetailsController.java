@@ -69,4 +69,5 @@ public class BookingDetailsController {
 	public List<BookingDetails> getAllBookingDetails(){
 		return bookingDetailsService.showAllBookingDetails();
 	}
+	
 }
